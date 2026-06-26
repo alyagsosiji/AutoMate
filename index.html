@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>뉴스 3분 브리핑 프로젝트</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        
+        <div id="login-section" class="section">
+            <h2>로그인</h2>
+            <input type="text" id="login-id" placeholder="아이디를 입력하세요">
+            <input type="password" id="login-pw" placeholder="비밀번호를 입력하세요">
+            <button onclick="login()">로그인</button>
+            <p>계정이 없으신가요? <a href="#" onclick="showSection('signup-section')">회원가입</a></p>
+        </div>
+
+        <div id="signup-section" class="section hidden">
+            <h2>회원가입</h2>
+            <input type="text" id="signup-id" placeholder="사용할 아이디">
+            <input type="password" id="signup-pw" placeholder="사용할 비밀번호">
+            <button onclick="signup()">가입하기</button>
+            <p>이미 계정이 있으신가요? <a href="#" onclick="showSection('login-section')">로그인</a></p>
+        </div>
+
+        <div id="category-section" class="section hidden">
+            <h2>관심 카테고리 선택</h2>
+            <p>원하는 카테고리를 선택해 주세요.</p>
+            <div class="categories">
+                <label><input type="checkbox" value="개발"> 개발</label>
+                <label><input type="checkbox" value="디자인"> 디자인</label>
+                <label><input type="checkbox" value="마케팅"> 마케팅</label>
+            </div>
+            <button onclick="saveCategories()">저장 및 시작하기</button>
+            <button onclick="logout()" class="secondary-btn">로그아웃</button>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
