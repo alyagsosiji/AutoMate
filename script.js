@@ -47,7 +47,8 @@ function signup() {
         });
 }
 
-// 2. Firebase Auth를 통한 로그인
+// 기존 로그인 함수를 아래 코드로 완전히 교체해 주세요.
+
 function login() {
     const email = document.getElementById('login-email').value;
     const pw = document.getElementById('login-pw').value;
@@ -57,17 +58,25 @@ function login() {
         return;
     }
 
+    // 파이어베이스 실제 인증 수행 (데이터베이스 보안 규칙 통과를 위해 필수)
     auth.signInWithEmailAndPassword(email, pw)
         .then((userCredential) => {
             const user = userCredential.user;
             currentUserId = user.uid;
             currentUserEmail = user.email;
-            
-            alert("ACCESS GRANTED. WELCOME, " + user.email);
-            
-            // 기존에 선택했던 카테고리가 있다면 불러오기 위해 함수 호출
-            loadUserCategories();
-            showSection('category-section');
+
+            // 로그인 성공 후, 이메일을 확인하여 마스터와 일반 유저 화면을 분기합니다.
+            if (user.email === 'alyagsosiji@gmail.com') {
+                // 마스터 계정인 경우
+                alert("ADMIN OVERRIDE AUTHORIZED. WELCOME, MASTER.");
+                showSection('admin-section');
+                loadAdminData();
+            } else {
+                // 일반 유저인 경우
+                alert("ACCESS GRANTED. WELCOME, " + user.email);
+                loadUserCategories();
+                showSection('category-section');
+            }
         })
         .catch((error) => {
             alert("ACCESS DENIED: " + error.message);
