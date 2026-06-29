@@ -1,12 +1,12 @@
 // TODO: 파이어베이스 콘솔(Firebase Console)에서 프로젝트 생성 후 발급받은 내 설정 값으로 대체하세요!
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.appspot.com",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    databaseURL: "https://automate-rpa-project-default-rtdb.firebaseio.com",
+    apiKey: "AIzaSyDZarBHcP_BT2cy3-7_QAd2KBe0ulhsZY0",
+    authDomain: "automate-rpa-project.firebaseapp.com",
+    projectId: "automate-rpa-project",
+    storageBucket: "automate-rpa-project.firebasestorage.app",
+    messagingSenderId: "478761538290",
+    appId: "1:478761538290:web:3d3f185ae5daa517d2f66b",
 };
 
 // 파이어베이스 초기화
