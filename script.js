@@ -273,7 +273,7 @@ const translations = {
         tabUsers: "USER RECORDS",
         tabLogs: "SYSTEM LOGS",
         disconnectSysBtn: "DISCONNECT SYSTEM",
-        footerText: "© 2026. alyagsosiji. website code.<br>© 2026. AutoMate RPA Project."
+        footerText: "© 2026. alyagsosiji. website code.\n© 2026. AutoMate RPA Project."
     },
     ko: {
         sysOnline: "시스템 온라인",
@@ -302,7 +302,7 @@ const translations = {
         tabUsers: "유저 기록",
         tabLogs: "시스템 로그",
         disconnectSysBtn: "시스템 연결 해제",
-        footerText: "© 2026. 알약소시지. 사이트 코드 제작.<br>© 2026. 오토메이트 자동화 프로젝트."
+        footerText: "© 2026. 알약소시지. 사이트 코드 제작.\n© 2026. 오토메이트 자동화 프로젝트."
     }
 };
 
