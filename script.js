@@ -273,7 +273,7 @@ const translations = {
         tabUsers: "USER RECORDS",
         tabLogs: "SYSTEM LOGS",
         disconnectSysBtn: "DISCONNECT SYSTEM",
-        footerText: "© 2026 RECONNAISSANCE & INFO SYSTEM V1.0. ALL RIGHTS RESERVED."
+        footerText: "© 2026. alyagsosiji. website code.<br>© 2026. AutoMate RPA Project."
     },
     ko: {
         sysOnline: "시스템 온라인",
@@ -287,7 +287,7 @@ const translations = {
         newEmailPh: "새 이메일",
         newPwPh: "새 비밀번호",
         signupBtn: "계정 등록",
-        existingIdentityText: "이미 계정이 존재하나요?",
+        existingIdentityText: "이미 계정이 존재하시나요?",
         loginLink: "[로그인]",
         sectorTitle: "섹터 선택",
         sectorInfo: "// UIPATH 처리를 위한 뉴스 카테고리 선택",
@@ -302,7 +302,7 @@ const translations = {
         tabUsers: "유저 기록",
         tabLogs: "시스템 로그",
         disconnectSysBtn: "시스템 연결 해제",
-        footerText: "© 2026 정찰 및 정보 시스템 V1.0. 모든 권리 보유."
+        footerText: "© 2026. 알약소시지. 사이트 코드 제작.<br>© 2026. 오토메이트 자동화 프로젝트."
     }
 };
 
