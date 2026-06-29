@@ -283,7 +283,7 @@ const translations = {
         loginBtn: "시스템 연결",
         noAccountText: "계정이 없으신가요?",
         registerLink: "[신규 등록]",
-        signupTitle: "신원 생성",
+        signupTitle: "계정 생성",
         newEmailPh: "새 이메일",
         newPwPh: "새 비밀번호",
         signupBtn: "계정 등록",
