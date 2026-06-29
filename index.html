@@ -59,8 +59,17 @@
         <div id="admin-section" class="section hidden">
             <h1 class="neon-text-pink">SYSTEM ADMIN</h1>
             <p class="info-text">// DATABASE OVERRIDE AUTHORIZED</p>
-            <div id="admin-user-list"></div>
-            <button class="btn-cyber-secondary" onclick="logout()">DISCONNECT SYSTEM</button>
+            
+            <div class="admin-tabs">
+                <button id="tab-users" class="tab-btn active" onclick="switchAdminTab('users')">USER RECORDS</button>
+                <button id="tab-logs" class="tab-btn" onclick="switchAdminTab('logs')">SYSTEM LOGS</button>
+            </div>
+
+            <div id="admin-user-list" class="admin-view"></div>
+            
+            <div id="admin-log-list" class="admin-view hidden"></div>
+
+            <button class="btn-cyber-secondary" style="margin-top:20px;" onclick="logout()">DISCONNECT SYSTEM</button>
         </div>
     </div>
 
