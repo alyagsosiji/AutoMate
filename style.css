@@ -268,3 +268,29 @@ button {
 .admin-view {
     width: 100%;
 }
+/* 푸터 언어 선택 버튼 스타일 */
+.lang-selector {
+    margin-bottom: 8px;
+    font-size: 12px;
+    color: #666688;
+}
+
+.lang-btn {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.lang-btn:hover {
+    color: #00f0ff;
+}
+
+.lang-btn.active {
+    color: #ff007f; /* 활성화된 언어는 네온 핑크색으로 표시 */
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(255, 0, 127, 0.5);
+}
+
+.lang-divider {
+    margin: 0 10px;
+    color: #333355;
+}
