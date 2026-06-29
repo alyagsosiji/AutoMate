@@ -1,74 +1,46 @@
-/* 기본 설정 */
-* {
-    box-sizing: border-box;
-    font-family: 'Malgun Gothic', sans-serif;
-}
-
-body {
-    background-color: #f4f7f6;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-}
-
-/* 중앙 컨테이너 박스 */
-.container {
-    background-color: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+/* 푸터(저작권) 스타일 */
+.cyber-footer {
+    position: absolute;
+    bottom: 15px;
     width: 100%;
-    max-width: 400px;
     text-align: center;
+    font-size: 10px;
+    color: #444466;
+    letter-spacing: 1.5px;
+    z-index: 20;
 }
 
-/* 화면 숨김 처리 클래스 */
-.hidden {
-    display: none;
+/* 어드민 데이터 테이블 스타일 */
+.admin-table { 
+    width: 100%; 
+    color: #00ffff; 
+    font-size: 11px; 
+    border-collapse: collapse; 
+    margin-bottom: 20px;
 }
 
-/* 입력창 및 버튼 디자인 */
-input {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+.admin-table th, .admin-table td { 
+    border: 1px solid #005577; 
+    padding: 8px; 
+    text-align: left; 
 }
 
-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-top: 10px;
+.admin-table th { 
+    background: rgba(0, 240, 255, 0.15); 
+    color: #fff;
 }
 
-button:hover {
-    background-color: #0056b3;
+.btn-delete { 
+    background: transparent; 
+    border: 1px solid #ff007f; 
+    color: #ff007f; 
+    padding: 4px 8px; 
+    cursor: pointer; 
+    font-size: 10px;
+    transition: 0.2s;
 }
 
-.secondary-btn {
-    background-color: #6c757d;
-}
-
-.secondary-btn:hover {
-    background-color: #5a6268;
-}
-
-/* 카테고리 체크박스 정렬 */
-.categories {
-    text-align: left;
-    margin: 20px 0;
-}
-
-.categories label {
-    display: block;
-    margin-bottom: 8px;
+.btn-delete:hover { 
+    background: #ff007f; 
+    color: #000; 
 }
