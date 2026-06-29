@@ -240,3 +240,102 @@ function deleteLogData(logId) {
         });
     }
 }
+// ---------------------------------------------
+// 다국어(i18n) 설정 기능
+// ---------------------------------------------
+
+// 언어 사전 (Dictionary)
+const translations = {
+    en: {
+        sysOnline: "SYSTEM ONLINE",
+        loginTitle: "ACCESS LOGIN",
+        emailPh: "ENTER EMAIL",
+        pwPh: "ENTER PASSWORD",
+        loginBtn: "INITIALIZE LOGIN",
+        noAccountText: "NO ACCOUNT?",
+        registerLink: "[REGISTER]",
+        signupTitle: "CREATE IDENTITY",
+        newEmailPh: "NEW EMAIL",
+        newPwPh: "NEW PASSWORD",
+        signupBtn: "REGISTER ACCOUNT",
+        existingIdentityText: "EXISTING IDENTITY?",
+        loginLink: "[LOGIN]",
+        sectorTitle: "SECTOR SELECTION",
+        sectorInfo: "// SELECT NEWS CATEGORIES FOR UIPATH PROCESSING",
+        cat1: "01 // POLITICS & SOCIETY",
+        cat2: "02 // IT & SCIENCE",
+        cat3: "03 // ECONOMY & FINANCE",
+        cat4: "04 // CULTURE & ENTERTAINMENT",
+        saveBtn: "SAVE & TRANSMIT DATA",
+        disconnectBtn: "DISCONNECT",
+        adminTitle: "SYSTEM ADMIN",
+        adminInfo: "// DATABASE OVERRIDE AUTHORIZED",
+        tabUsers: "USER RECORDS",
+        tabLogs: "SYSTEM LOGS",
+        disconnectSysBtn: "DISCONNECT SYSTEM",
+        footerText: "© 2026 RECONNAISSANCE & INFO SYSTEM V1.0. ALL RIGHTS RESERVED."
+    },
+    ko: {
+        sysOnline: "시스템 온라인",
+        loginTitle: "시스템 접속",
+        emailPh: "이메일 입력",
+        pwPh: "비밀번호 입력",
+        loginBtn: "로그인 초기화",
+        noAccountText: "계정이 없으신가요?",
+        registerLink: "[신규 등록]",
+        signupTitle: "신원 생성",
+        newEmailPh: "새 이메일",
+        newPwPh: "새 비밀번호",
+        signupBtn: "계정 등록",
+        existingIdentityText: "이미 계정이 존재하나요?",
+        loginLink: "[로그인]",
+        sectorTitle: "섹터 선택",
+        sectorInfo: "// UIPATH 처리를 위한 뉴스 카테고리 선택",
+        cat1: "01 // 정치 & 사회",
+        cat2: "02 // IT & 과학",
+        cat3: "03 // 경제 & 금융",
+        cat4: "04 // 문화 & 연예",
+        saveBtn: "저장 및 데이터 전송",
+        disconnectBtn: "연결 해제",
+        adminTitle: "시스템 관리자",
+        adminInfo: "// 데이터베이스 접근 권한 확인됨",
+        tabUsers: "유저 기록",
+        tabLogs: "시스템 로그",
+        disconnectSysBtn: "시스템 연결 해제",
+        footerText: "© 2026 정찰 및 정보 시스템 V1.0. 모든 권리 보유."
+    }
+};
+
+// 언어 변경 함수
+function setLanguage(lang) {
+    // 1. 선택한 언어를 브라우저에 저장
+    localStorage.setItem('appLang', lang);
+
+    // 2. 버튼 색상 활성화/비활성화 처리
+    document.getElementById('lang-en').classList.remove('active');
+    document.getElementById('lang-ko').classList.remove('active');
+    document.getElementById(`lang-${lang}`).classList.add('active');
+
+    // 3. 화면의 일반 텍스트 변경
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang][key]) {
+            el.innerText = translations[lang][key];
+        }
+    });
+
+    // 4. 입력창(input) 안의 안내문구(placeholder) 변경
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (translations[lang][key]) {
+            el.placeholder = translations[lang][key];
+        }
+    });
+}
+
+// 윈도우(웹페이지)가 모두 로드되면 실행되는 초기화 코드
+window.addEventListener('DOMContentLoaded', () => {
+    // 저장된 언어가 있으면 가져오고, 없으면 기본값 'en'(영어) 사용
+    const savedLang = localStorage.getItem('appLang') || 'en';
+    setLanguage(savedLang);
+});
