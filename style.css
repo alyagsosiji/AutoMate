@@ -1,11 +1,15 @@
+/* ==========================================================================
+   기본 설정 및 드래그 방지 (뉴스 스타일 전용 서체 적용)
+   ========================================================================== */
 * {
     box-sizing: border-box;
-    font-family: 'Courier New', Courier, monospace; /* SF 느낌의 폰트 */
+    /* 현대적인 뉴스 폰트 조합 (맑은 고딕, 가라몬드, 아리알 등) */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Malgun Gothic", sans-serif;
 }
 
 body {
-    background-color: #050510;
-    color: #00ffff;
+    background-color: #000000; /* 완전한 블랙 배경 */
+    color: #ffffff;           /* 순백색 글자 */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,284 +17,329 @@ body {
     margin: 0;
     overflow: hidden;
     position: relative;
+    
+    /* 기존 보안 설정 유지 (드래그 및 텍스트 선택 방지) */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
-/* 화면 스캔라인 효과 (SF 감성 추가) */
+/* SF 스캔라인 제거 (숨김 처리) */
 .scanlines {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-    background-size: 100% 4px, 6px 100%;
-    z-index: 10;
-    pointer-events: none;
+    display: none !important;
 }
 
-/* 메인 SF 컨테이너 */
+/* ==========================================================================
+   메인 레이아웃 (심플 매거진 박스)
+   ========================================================================== */
 .cyber-container {
-    background: rgba(10, 10, 28, 0.85);
-    border: 2px solid #00f0ff;
-    border-radius: 4px;
-    padding: 30px;
+    background: #000000;
+    border: 1px solid #333333; /* 얇고 깔끔한 다크 그레이 테두리 */
+    padding: 40px;
     width: 100%;
-    max-width: 450px;
-    box-shadow: 0 0 20px rgba(0, 240, 255, 0.2), inset 0 0 15px rgba(0, 240, 255, 0.1);
+    max-width: 420px;
     position: relative;
     z-index: 20;
 }
 
+/* 상단 시스템 헤더 */
 .system-header {
     font-size: 11px;
-    color: #5555aa;
+    color: #666666; /* 차분한 그레이 */
     text-align: left;
-    margin-bottom: 20px;
-    letter-spacing: 2px;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+    font-weight: 600;
+    text-transform: uppercase;
 }
 
+/* 상태 표시 점 (하얀색 미니멀 점으로 변경) */
 .status-dot {
     display: inline-block;
-    width: 8px;
-    height: 8px;
-    background-color: #39ff14;
+    width: 6px;
+    height: 6px;
+    background-color: #ffffff;
     border-radius: 50%;
-    box-shadow: 0 0 8px #39ff14;
-    margin-right: 5px;
+    margin-right: 6px;
 }
 
-.hidden { display: none !important; }
-
-/* 네온 타이틀 효과 */
-.neon-text-blue {
-    color: #00f0ff;
-    text-shadow: 0 0 8px #00f0ff;
-    font-size: 24px;
-    margin-bottom: 25px;
-    letter-spacing: 3px;
+.hidden { 
+    display: none !important; 
 }
 
-.neon-text-pink {
-    color: #ff007f;
-    text-shadow: 0 0 8px #ff007f;
-    font-size: 24px;
+/* ==========================================================================
+   타이틀 및 텍스트 요소 (뉴스 헤드라인 스타일)
+   ========================================================================== */
+/* 기존 네온 텍스트 클래스를 신문 헤드라인 느낌으로 오버라이딩 */
+.neon-text-blue, .neon-text-pink {
+    color: #ffffff;
+    text-shadow: none !important; /* 네온 효과 완전 제거 */
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin: 0 0 10px 0;
+    text-align: left;
+}
+
+/* 타이틀 밑 레이아웃 선 효과 추가 */
+.section h1 {
+    border-bottom: 2px solid #ffffff;
+    padding-bottom: 15px;
     margin-bottom: 25px;
-    letter-spacing: 3px;
 }
 
 .info-text {
-    font-size: 11px;
-    color: #8888aa;
-    margin-bottom: 20px;
+    font-size: 13px;
+    color: #888888;
+    text-align: left;
+    margin-bottom: 25px;
+    line-height: 1.4;
 }
 
-/* 사이버 인풋 */
+/* ==========================================================================
+   폼 입력창 (인풋 필드)
+   ========================================================================== */
 input {
+    /* 기존 입력창 드래그 허용 보안 속성 유지 */
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+
     width: 100%;
-    padding: 12px;
-    margin-bottom: 15px;
-    background: rgba(0, 0, 0, 0.6);
-    border: 1px solid #005577;
-    color: #00ffff;
+    padding: 12px 0; /* 좌우 패딩을 줄이고 선 형태로 디자인 */
+    margin-bottom: 20px;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #333333; /* 하단 선만 표시 */
+    color: #ffffff;
     border-radius: 0;
     outline: none;
-    transition: all 0.3s ease;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
 }
 
 input:focus {
-    border-color: #00f0ff;
-    box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+    border-bottom-color: #ffffff; /* 포커스 시 선이 하얗게 강조됨 */
 }
 
-/* 버튼 스타일 */
+/* 인풋 플레이스홀더 글자 색상 */
+input::placeholder {
+    color: #444444;
+}
+
+/* ==========================================================================
+   버튼 (고대비 모노크롬 스타일)
+   ========================================================================== */
 button {
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     border: none;
     cursor: pointer;
-    font-weight: bold;
+    font-size: 13px;
+    font-weight: 700;
     letter-spacing: 1px;
-    margin-top: 10px;
-    transition: all 0.3s ease;
+    margin-top: 15px;
+    border-radius: 0; /* 완전히 각진 버튼 */
+    transition: all 0.2s ease;
 }
 
-.btn-cyber-blue {
-    background: transparent;
-    border: 1px solid #00f0ff;
-    color: #00f0ff;
-    box-shadow: inset 0 0 4px rgba(0,240,255,0.2);
-}
-.btn-cyber-blue:hover {
-    background: #00f0ff;
-    color: #000;
-    box-shadow: 0 0 15px #00f0ff;
+/* 기본/메인 버튼: 하얀 배경에 검은 글씨 */
+.btn-cyber-blue, .btn-cyber-pink {
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #ffffff;
 }
 
-.btn-cyber-pink {
-    background: transparent;
-    border: 1px solid #ff007f;
-    color: #ff007f;
-}
-.btn-cyber-pink:hover {
-    background: #ff007f;
-    color: #000;
-    box-shadow: 0 0 15px #ff007f;
+.btn-cyber-blue:hover, .btn-cyber-pink:hover {
+    background-color: #000000;
+    color: #ffffff;
 }
 
+/* 보조 버튼: 검은 배경에 그레이 테두리 */
 .btn-cyber-secondary {
-    background: transparent;
-    border: 1px solid #555;
-    color: #888;
+    background-color: #000000;
+    border: 1px solid #333333;
+    color: #888888;
 }
+
 .btn-cyber-secondary:hover {
-    border-color: #aaa;
-    color: #fff;
+    border-color: #ffffff;
+    color: #ffffff;
 }
 
+/* 링크 및 서브 텍스트 */
 .sub-text {
-    font-size: 12px;
-    color: #666688;
-    margin-top: 20px;
-}
-.sub-text a {
-    color: #00f0ff;
-    text-decoration: none;
+    font-size: 13px;
+    color: #666666;
+    margin-top: 25px;
+    text-align: left;
 }
 
-/* 체크박스 커스텀 */
+.sub-text a {
+    color: #ffffff;
+    text-decoration: underline;
+    margin-left: 5px;
+}
+
+/* ==========================================================================
+   카테고리 선택창 (체크박스)
+   ========================================================================== */
 .cyber-categories {
     text-align: left;
     margin: 25px 0;
+    border-top: 1px solid #111111;
+    padding-top: 15px;
 }
 
 .cyber-checkbox {
     display: block;
     position: relative;
     padding-left: 30px;
-    margin-bottom: 15px;
+    margin-bottom: 18px;
     cursor: pointer;
-    font-size: 13px;
-    color: #88ccff;
-    user-select: none;
+    font-size: 14px;
+    color: #aaaaaa;
+    line-height: 18px;
 }
 
 .cyber-checkbox input {
     position: absolute;
     opacity: 0;
-    cursor: pointer;
     height: 0; width: 0;
 }
 
+/* 사각형 체크박스 뼈대 */
 .chk-box {
     position: absolute;
     top: 0; left: 0;
-    height: 16px; width: 16px;
-    border: 1px solid #005577;
-    background: rgba(0,0,0,0.5);
+    height: 18px; width: 18px;
+    border: 1px solid #333333;
+    background: #000000;
+    transition: all 0.2s ease;
 }
 
 .cyber-checkbox:hover input ~ .chk-box {
-    border-color: #00f0ff;
+    border-color: #ffffff;
 }
 
+/* 체크 시 속이 꽉 찬 하얀 사각형으로 변경 */
 .cyber-checkbox input:checked ~ .chk-box {
-    background-color: #00f0ff;
-    border-color: #00f0ff;
-    box-shadow: 0 0 8px #00f0ff;
+    background-color: #ffffff;
+    border-color: #ffffff;
 }
 
-/* 푸터(저작권) 스타일 */
-.cyber-footer {
-    position: absolute;
-    bottom: 15px;
-    width: 100%;
-    text-align: center;
-    font-size: 10px;
-    color: #444466;
-    letter-spacing: 1.5px;
-    z-index: 20;
+.cyber-checkbox input:checked ~ span:not(.chk-box) {
+    color: #ffffff; /* 체크 시 글자도 하얗게 강조 */
 }
 
-/* 어드민 데이터 테이블 스타일 */
-.admin-table { 
-    width: 100%; 
-    color: #00ffff; 
-    font-size: 11px; 
-    border-collapse: collapse; 
-    margin-bottom: 20px;
-}
-
-.admin-table th, .admin-table td { 
-    border: 1px solid #005577; 
-    padding: 8px; 
-    text-align: left; 
-}
-
-.admin-table th { 
-    background: rgba(0, 240, 255, 0.15); 
-    color: #fff;
-}
-
-.btn-delete { 
-    background: transparent; 
-    border: 1px solid #ff007f; 
-    color: #ff007f; 
-    padding: 4px 8px; 
-    cursor: pointer; 
-    font-size: 10px;
-    transition: 0.2s;
-}
-
-.btn-delete:hover { 
-    background: #ff007f; 
-    color: #000; 
-}
-/* 어드민 탭 전환 버튼 스타일 */
+/* ==========================================================================
+   어드민 패널 & 데이터 테이블
+   ========================================================================== */
 .admin-tabs {
     display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 0; /* 버튼 사이 여백을 없애고 선으로 연결 */
+    margin-bottom: 25px;
+    border-bottom: 1px solid #333333;
 }
 
 .tab-btn {
-    background: rgba(0, 0, 0, 0.5);
-    border: 1px solid #555;
-    color: #888;
-    padding: 10px;
-    font-size: 11px;
+    background: transparent;
+    border: none;
+    color: #555555;
+    padding: 12px;
+    font-size: 12px;
+    font-weight: 600;
     flex: 1;
     margin-top: 0;
 }
 
 .tab-btn.active {
-    border-color: #ff007f;
-    color: #ff007f;
-    box-shadow: inset 0 0 8px rgba(255, 0, 127, 0.3);
+    color: #ffffff;
+    border-bottom: 2px solid #ffffff; /* 활성화된 탭은 아래 하얀 선 표시 */
 }
 
 .admin-view {
     width: 100%;
 }
-/* 푸터 언어 선택 버튼 스타일 */
+
+/* 뉴스 인쇄물 느낌의 깔끔한 테이블 */
+.admin-table { 
+    width: 100%; 
+    color: #ffffff; 
+    font-size: 12px; 
+    border-collapse: collapse; 
+    margin-bottom: 20px;
+}
+
+.admin-table th, .admin-table td { 
+    border-bottom: 1px solid #222222; /* 세로선은 없애고 가로선만 깔끔하게 */
+    padding: 12px 8px; 
+    text-align: left; 
+}
+
+.admin-table th { 
+    border-bottom: 2px solid #ffffff; /* 헤더 아래는 두꺼운 선 */
+    color: #ffffff;
+    font-weight: 700;
+}
+
+/* 삭제(PURGE) 버튼 */
+.btn-delete { 
+    background: transparent; 
+    border: 1px solid #333333; 
+    color: #ff4444; /* 삭제는 경고의 의미로 톤다운된 레드 유지 */
+    padding: 4px 8px; 
+    cursor: pointer; 
+    font-size: 11px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.btn-delete:hover { 
+    background: #ff4444; 
+    color: #000000; 
+    border-color: #ff4444;
+}
+
+/* ==========================================================================
+   푸터 (언어 선택 및 저작권)
+   ========================================================================== */
+.cyber-footer {
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+    text-align: center;
+    font-size: 11px;
+    color: #444444;
+    letter-spacing: 0.5px;
+    z-index: 20;
+}
+
 .lang-selector {
-    margin-bottom: 8px;
-    font-size: 12px;
-    color: #666688;
+    margin-bottom: 12px;
+    font-size: 11px;
+    color: #444444;
+    font-weight: 600;
 }
 
 .lang-btn {
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
+    padding: 2px 4px;
 }
 
 .lang-btn:hover {
-    color: #00f0ff;
+    color: #ffffff;
 }
 
 .lang-btn.active {
-    color: #ff007f; /* 활성화된 언어는 네온 핑크색으로 표시 */
-    font-weight: bold;
-    text-shadow: 0 0 5px rgba(255, 0, 127, 0.5);
+    color: #000000;
+    background-color: #ffffff; /* 활성화된 언어는 반전(블랙&화이트) 효과 */
 }
 
 .lang-divider {
-    margin: 0 10px;
-    color: #333355;
+    margin: 0 8px;
+    color: #222222;
 }
