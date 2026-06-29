@@ -280,7 +280,7 @@ const translations = {
         loginTitle: "시스템 접속",
         emailPh: "이메일 입력",
         pwPh: "비밀번호 입력",
-        loginBtn: "로그인 초기화",
+        loginBtn: "시스템 연결",
         noAccountText: "계정이 없으신가요?",
         registerLink: "[신규 등록]",
         signupTitle: "신원 생성",
