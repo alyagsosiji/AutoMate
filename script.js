@@ -1,4 +1,4 @@
-// TODO: 파이어베이스 콘솔(Firebase Console)에서 프로젝트 생성 후 발급받은 내 설정 값으로 대체하세요!
+// 파이어베이스 설정 정보
 const firebaseConfig = {
     databaseURL: "https://automate-rpa-project-default-rtdb.firebaseio.com",
     apiKey: "AIzaSyDZarBHcP_BT2cy3-7_QAd2KBe0ulhsZY0",
@@ -23,6 +23,7 @@ function showSection(sectionId) {
     document.getElementById('login-section').classList.add('hidden');
     document.getElementById('signup-section').classList.add('hidden');
     document.getElementById('category-section').classList.add('hidden');
+    document.getElementById('admin-section').classList.add('hidden'); // 어드민 섹션도 숨김 처리에 포함
     
     document.getElementById(sectionId).classList.remove('hidden');
 }
@@ -47,8 +48,7 @@ function signup() {
         });
 }
 
-// 기존 로그인 함수를 아래 코드로 완전히 교체해 주세요.
-
+// 2. Firebase Auth를 통한 통합 로그인 (일반/마스터 분기)
 function login() {
     const email = document.getElementById('login-email').value;
     const pw = document.getElementById('login-pw').value;
@@ -58,7 +58,7 @@ function login() {
         return;
     }
 
-    // 파이어베이스 실제 인증 수행 (데이터베이스 보안 규칙 통과를 위해 필수)
+    // 파이어베이스 실제 인증 수행
     auth.signInWithEmailAndPassword(email, pw)
         .then((userCredential) => {
             const user = userCredential.user;
@@ -70,7 +70,7 @@ function login() {
                 // 마스터 계정인 경우
                 alert("ADMIN OVERRIDE AUTHORIZED. WELCOME, MASTER.");
                 showSection('admin-section');
-                loadAdminData();
+                loadAdminData(); // 마스터 접속 시 자동으로 유저 데이터 탭 불러오기
             } else {
                 // 일반 유저인 경우
                 alert("ACCESS GRANTED. WELCOME, " + user.email);
@@ -103,7 +103,7 @@ function loadUserCategories() {
         });
 }
 
-// 4. 카테고리 선택 값 리얼타임 데이터베이스에 저장 (UiPath 연동 규격 포함)
+// 4. 카테고리 선택 값 리얼타임 데이터베이스에 저장
 function saveCategories() {
     if (!currentUserId) return;
 
@@ -119,13 +119,11 @@ function saveCategories() {
         return;
     }
 
-    // [중요] UiPath 구조 연동 데이터 생성
-    // 데이터베이스의 'users/사용자고유ID' 경로에 객체 구조로 보관됩니다.
     const userData = {
         email: currentUserEmail,
         categories: selected,
-        uipath_status: "pending",               // UiPath가 읽지 않은 신규/수정 상태 표시
-        timestamp: firebase.database.ServerValue.TIMESTAMP // 데이터 저장 시간 기록
+        uipath_status: "pending",
+        timestamp: firebase.database.ServerValue.TIMESTAMP
     };
 
     database.ref('users/' + currentUserId).set(userData)
@@ -149,42 +147,11 @@ function logout() {
     });
 }
 
-// --- 기존 코드 아래부터 이어서 붙여넣기 혹은 수정 ---
+// ---------------------------------------------
+// 이하 어드민(마스터) 전용 기능 모음
+// ---------------------------------------------
 
-const _0x1a = "YWx5YWdzb3NpamlAZ21haWwuY29t";
-const _0x2b = "MjYwNDE2";
-
-function login() {
-    const email = document.getElementById('login-email').value;
-    const pw = document.getElementById('login-pw').value;
-
-    if (!email || !pw) {
-        alert("CRITICAL ERROR: CREDENTIALS REQUIRED.");
-        return;
-    }
-
-    if (btoa(email) === _0x1a && btoa(pw) === _0x2b) {
-        alert("ADMIN OVERRIDE AUTHORIZED. WELCOME, MASTER.");
-        showSection('admin-section');
-        loadAdminData();
-        return;
-    }
-
-    auth.signInWithEmailAndPassword(email, pw)
-        .then((userCredential) => {
-            const user = userCredential.user;
-            currentUserId = user.uid;
-            currentUserEmail = user.email;
-            
-            alert("ACCESS GRANTED. WELCOME, " + user.email);
-            loadUserCategories();
-            showSection('category-section');
-        })
-        .catch((error) => {
-            alert("ACCESS DENIED: " + error.message);
-        });
-}
-
+// 6. 마스터 - 유저 데이터 불러오기
 function loadAdminData() {
     database.ref('users/').once('value').then((snapshot) => {
         const users = snapshot.val();
@@ -207,42 +174,37 @@ function loadAdminData() {
     });
 }
 
+// 7. 마스터 - 유저 데이터 삭제
 function deleteUserData(uid) {
     if(confirm("WARNING: DO YOU REALLY WANT TO PURGE THIS RECORD?")) {
         database.ref('users/' + uid).remove().then(() => {
             alert("RECORD PURGED SUCCESSFULLY.");
-            loadAdminData(); // 데이터 삭제 후 테이블 새로고침
+            loadAdminData();
         });
     }
 }
 
-// --- 기존 코드 아래에 추가 ---
-
-// 1. 어드민 탭 전환 함수
+// 8. 마스터 - 탭 전환 함수
 function switchAdminTab(tabName) {
-    // 탭 버튼 상태 초기화
     document.getElementById('tab-users').classList.remove('active');
     document.getElementById('tab-logs').classList.remove('active');
     
-    // 뷰 영역 초기화
     document.getElementById('admin-user-list').classList.add('hidden');
     document.getElementById('admin-log-list').classList.add('hidden');
 
     if (tabName === 'users') {
         document.getElementById('tab-users').classList.add('active');
         document.getElementById('admin-user-list').classList.remove('hidden');
-        loadAdminData(); // 유저 데이터 불러오기 (기존 함수)
+        loadAdminData();
     } else if (tabName === 'logs') {
         document.getElementById('tab-logs').classList.add('active');
         document.getElementById('admin-log-list').classList.remove('hidden');
-        loadSystemLogs(); // 기타 데이터 불러오기 (신규 함수)
+        loadSystemLogs();
     }
 }
 
-// 2. 기타 데이터(System Logs) 불러오기
+// 9. 마스터 - 시스템 로그(기타 데이터) 불러오기
 function loadSystemLogs() {
-    // 'system_logs' 경로에서 데이터를 가져옵니다. 
-    // (추후 UiPath가 결과를 이 경로에 JSON 형태로 쏴주도록 설정하시면 됩니다.)
     database.ref('system_logs/').once('value').then((snapshot) => {
         const logs = snapshot.val();
         let html = '<table class="admin-table"><tr><th>TIMESTAMP</th><th>DATA TYPE</th><th>DETAILS</th><th>ACTION</th></tr>';
@@ -250,7 +212,6 @@ function loadSystemLogs() {
         if (logs) {
             for (let logId in logs) {
                 let log = logs[logId];
-                // 저장된 데이터의 형태에 따라 보여줄 항목을 매핑합니다.
                 let type = log.type ? log.type : 'UNKNOWN';
                 let detail = log.detail ? log.detail : 'NO DETAILS';
                 let time = log.timestamp ? new Date(log.timestamp).toLocaleString() : 'N/A';
@@ -270,12 +231,12 @@ function loadSystemLogs() {
     });
 }
 
-// 3. 기타 데이터 삭제 함수
+// 10. 마스터 - 시스템 로그 삭제
 function deleteLogData(logId) {
     if(confirm("WARNING: DO YOU REALLY WANT TO PURGE THIS LOG RECORD?")) {
         database.ref('system_logs/' + logId).remove().then(() => {
             alert("LOG RECORD PURGED SUCCESSFULLY.");
-            loadSystemLogs(); // 삭제 후 로그 테이블 새로고침
+            loadSystemLogs();
         });
     }
 }
