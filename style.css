@@ -1,3 +1,201 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace; /* SF 느낌의 폰트 */
+}
+
+body {
+    background-color: #050510;
+    color: #00ffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    position: relative;
+}
+
+/* 화면 스캔라인 효과 (SF 감성 추가) */
+.scanlines {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 4px, 6px 100%;
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* 메인 SF 컨테이너 */
+.cyber-container {
+    background: rgba(10, 10, 28, 0.85);
+    border: 2px solid #00f0ff;
+    border-radius: 4px;
+    padding: 30px;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.2), inset 0 0 15px rgba(0, 240, 255, 0.1);
+    position: relative;
+    z-index: 20;
+}
+
+.system-header {
+    font-size: 11px;
+    color: #5555aa;
+    text-align: left;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+.status-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: #39ff14;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #39ff14;
+    margin-right: 5px;
+}
+
+.hidden { display: none !important; }
+
+/* 네온 타이틀 효과 */
+.neon-text-blue {
+    color: #00f0ff;
+    text-shadow: 0 0 8px #00f0ff;
+    font-size: 24px;
+    margin-bottom: 25px;
+    letter-spacing: 3px;
+}
+
+.neon-text-pink {
+    color: #ff007f;
+    text-shadow: 0 0 8px #ff007f;
+    font-size: 24px;
+    margin-bottom: 25px;
+    letter-spacing: 3px;
+}
+
+.info-text {
+    font-size: 11px;
+    color: #8888aa;
+    margin-bottom: 20px;
+}
+
+/* 사이버 인풋 */
+input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid #005577;
+    color: #00ffff;
+    border-radius: 0;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+input:focus {
+    border-color: #00f0ff;
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+}
+
+/* 버튼 스타일 */
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn-cyber-blue {
+    background: transparent;
+    border: 1px solid #00f0ff;
+    color: #00f0ff;
+    box-shadow: inset 0 0 4px rgba(0,240,255,0.2);
+}
+.btn-cyber-blue:hover {
+    background: #00f0ff;
+    color: #000;
+    box-shadow: 0 0 15px #00f0ff;
+}
+
+.btn-cyber-pink {
+    background: transparent;
+    border: 1px solid #ff007f;
+    color: #ff007f;
+}
+.btn-cyber-pink:hover {
+    background: #ff007f;
+    color: #000;
+    box-shadow: 0 0 15px #ff007f;
+}
+
+.btn-cyber-secondary {
+    background: transparent;
+    border: 1px solid #555;
+    color: #888;
+}
+.btn-cyber-secondary:hover {
+    border-color: #aaa;
+    color: #fff;
+}
+
+.sub-text {
+    font-size: 12px;
+    color: #666688;
+    margin-top: 20px;
+}
+.sub-text a {
+    color: #00f0ff;
+    text-decoration: none;
+}
+
+/* 체크박스 커스텀 */
+.cyber-categories {
+    text-align: left;
+    margin: 25px 0;
+}
+
+.cyber-checkbox {
+    display: block;
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #88ccff;
+    user-select: none;
+}
+
+.cyber-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0; width: 0;
+}
+
+.chk-box {
+    position: absolute;
+    top: 0; left: 0;
+    height: 16px; width: 16px;
+    border: 1px solid #005577;
+    background: rgba(0,0,0,0.5);
+}
+
+.cyber-checkbox:hover input ~ .chk-box {
+    border-color: #00f0ff;
+}
+
+.cyber-checkbox input:checked ~ .chk-box {
+    background-color: #00f0ff;
+    border-color: #00f0ff;
+    box-shadow: 0 0 8px #00f0ff;
+}
+
 /* 푸터(저작권) 스타일 */
 .cyber-footer {
     position: absolute;
